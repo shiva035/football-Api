@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: football-standings
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+api:
+  football:
+    key: ${API_KEY}
+    url: ${API_URL}
+
+restTemplate:
+    server:
+      timeout: 10000
+
+
+logging:
+  level:
+    org.springdoc: DEBUG

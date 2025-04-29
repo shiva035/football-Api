@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: football-standings
+
+api:
+  football:
+    key: 123456
+    url: https://apiv3.apifootball.com
+
+restTemplate:
+    server:
+      timeout: 10000

@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Football Standings API
+  description: API to retrieve football team standings by country, league, and team name
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+tags:
+  - name: Standings
+    description: Operations related to football standings
+  - name: Leagues
+    description: Operations related to football leagues
+paths:
+  /api/standings:
+    get:
+      tags:
+        - Standings
+      summary: Get team standings by country, league, and team name
+      operationId: getStandings
+      parameters:
+        - name: countryName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: leagueName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: teamName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Standings'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /api/leagues:
+    get:
+      tags:
+        - Leagues
+      summary: Get all football leagues
+      operationId: getLeagues
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/League'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: string
+
+components:
+  schemas:
+    Standings:
+      type: object
+      properties:
+        country_name:
+          type: string
+          description: Name of the country
+        league_id:
+          type: string
+          description: Unique identifier for the league
+        league_name:
+          type: string
+          description: Name of the league
+        team_id:
+          type: string
+          description: Unique identifier for the team
+        team_name:
+          type: string
+          description: Name of the team
+        overall_promotion:
+          type: string
+          description: Promotion status for the team in the overall league
+        overall_league_position:
+          type: string
+          description: Team's position in the overall league
+        overall_league_payed:
+          type: string
+          description: Number of matches played in the overall league
+        overall_league_W:
+          type: string
+          description: Number of matches won in the overall league
+        overall_league_D:
+          type: string
+          description: Number of matches drawn in the overall league
+        overall_league_L:
+          type: string
+          description: Number of matches lost in the overall league
+        overall_league_GF:
+          type: string
+          description: Goals for (scored) in the overall league
+        overall_league_GA:
+          type: string
+          description: Goals against (conceded) in the overall league
+        overall_league_PTS:
+          type: string
+          description: Total points in the overall league
+        home_league_position:
+          type: string
+          description: Team's position in home matches
+        home_promotion:
+          type: string
+          description: Promotion status for home matches
+        home_league_payed:
+          type: string
+          description: Number of home matches played
+        home_league_W:
+          type: string
+          description: Number of home matches won
+        home_league_D:
+          type: string
+          description: Number of home matches drawn
+        home_league_L:
+          type: string
+          description: Number of home matches lost
+        home_league_GF:
+          type: string
+          description: Goals for in home matches
+        home_league_GA:
+          type: string
+          description: Goals against in home matches
+        home_league_PTS:
+          type: string
+          description: Total points in home matches
+        away_league_position:
+          type: string
+          description: Team's position in away matches
+        away_promotion:
+          type: string
+          description: Promotion status for away matches
+        away_league_payed:
+          type: string
+          description: Number of away matches played
+        away_league_W:
+          type: string
+          description: Number of away matches won
+        away_league_D:
+          type: string
+          description: Number of away matches drawn
+        away_league_L:
+          type: string
+          description: Number of away matches lost
+        away_league_GF:
+          type: string
+          description: Goals for in away matches
+        away_league_GA:
+          type: string
+          description: Goals against in away matches
+        away_league_PTS:
+          type: string
+          description: Total points in away matches
+        league_round:
+          type: string
+          description: Current round of the league
+        team_badge:
+          type: string
+          description: URL to the team's badge image
+        fk_stage_key:
+          type: string
+          description: Foreign key for the stage
+        stage_name:
+          type: string
+          description: Name of the current stage
+      required:
+        - league_id
+    League:
+      type: object
+      properties:
+        country_id:
+          type: string
+          description: Unique identifier for the country
+        country_name:
+          type: string
+          description: Name of the country
+        league_id:
+          type: string
+          description: Unique identifier for the league
+        league_name:
+          type: string
+          description: Name of the league
+        league_season:
+          type: string
+          description: Season of the league (e.g., 2024/2025)
+        league_logo:
+          type: string
+          description: URL to the league's logo image
+        country_logo:
+          type: string
+          description: URL to the country's logo image
