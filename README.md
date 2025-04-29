@@ -1,4 +1,4 @@
-# FOOTBALL STANDINGS
+# FOOTBALL STANDINGS API
 POC for football standings api
 
 ## Prerequisites
@@ -16,22 +16,22 @@ For further reference, please consider the following sections:
 ## Installation
 - Clone code into local
 ```bash
-git clone git@github.com:AmwayCommon/POC_LOS_Consumer_API.git
+git clone https://github.com/shiva035/football-Api.git
 ```
-- Run in same folder where docker-compose-dependencies.yml file is
+- To Run Project OR Maven build
+```Maven build
+ mvn clean build OR mvn spring-boot:run -Dspring-boot.run.arguments=--API_KEY=abcdef12345
+```
+- Run in same folder where Dockerfile is
 ```bash
- docker compose -f docker-compose-dependencies.yml up -d
+ docker build -t my-football-api . 
 ```
 - Run in same folder where docker-compose.yml file is
 ```bash
- docker compose up
+ docker run -e API_URL=abcdef12345 -e API_KEY=abcdef12345 my-football-api
 ```
 Use option --detach to run in background
 
-- Run to generate proto files
-```bash
-  protoc --java_out=src/main/java --proto_path=src/main/resources/proto.v1/core src/main/resources/proto.v1/core/*.proto
-````
 - Run maven build or create new Run/Debug maven Configuration in IDE
 ```bash
 mvn clean package -U  
@@ -41,20 +41,10 @@ mvn clean package -U
 - Setup Spring datasource and profile variables either creating a new Run Configuration or via command line.
 ```properties
 ENV=dev;
-KAFKA_BOOTSTRAP_SERVER=localhost:9092;
-KAFKA_SCHEMA_REGISTRY_URL=http://localhost:8081;
-CORELOS_WRITE_SERVER_URL=http://closwriter:8542
-SPRING_DATASOURCE_PASSWORD=M8.^x3=lObu^6vUcWV.E.bK4s.e5ie;
-SPRING_DATASOURCE_URL=jdbc:postgresql://poc-los-consumer-perf-db.cpm7u1hj37gn.us-east-1.rds.amazonaws.com:5432/postgres
-SPRING_DATASOURCE_USERNAME=postgres;
-
+API_KEY=123456
+API_URL=https://apiv2.apifootball.com
 ```
 - Use local configuration
 ```properties
 SPRING_PROFILES_ACTIVE=local
 ```
-Local configuration use local docker containers to run application.
-
-In this case application is pointing to local docker Oracle database (it could be changed to point Beta or other environment).
-
-Application should run and listen for any new message in the local kafka. 
